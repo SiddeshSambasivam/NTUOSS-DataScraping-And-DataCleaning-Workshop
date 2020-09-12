@@ -1,77 +1,229 @@
-# NTUOSS Data scraping and Data cleaning workshop
+# NTU OSS Data scraping and Data cleaning workshop
 
-What is web scraping and web crawling?
+<img src='./assets/poster.png'>
 
-Most might be confused about these terms as they are used interchangably and it is important to know to when to use what given the context.
+_This repositry contains the reference scripts and content presented in the NTU OSS Data scraping and Data cleaning workshop._
 
-Web scraping is extracting information of any form from any source not necessarily a web page and on the other hand, web crawling is a process of iteratively finding and fetching web links starting from a list of seed URL's. Strictly speaking, to do web crawling, we have to do some degree of web scraping (to extract the URL's.)
+**Presenter:** <ins>Siddesh</ins> Sambasivam Suseela <br>
+**Date (Time):** 18 September 2020 (6:30 PM - 8:30 PM SGT)
 
-In this workshop we see about how to crawl through various pages to scrape content from websites. Firstly, to perform there are a few libraries out there and let me give you my reasoning on why I chose the library with which we are going to work today!
+## Hello There!
 
-So there are three standard libraries which could be used and which you might have heard about.
+In this workshop we'll be mining data from web to create our own datasets for two of the most popular task in machine learning. Firstly, we'll be looking into mining different types of data from web and then we'll move to data cleaning.
 
-- Beautiful Soup
-- Scrapy
-- Selenium
+<div style="text-align:center">
+<a href="http://www.youtube.com/watch?v=Ct8Gxo8StBU"> 
+<img src="./assets/video.jpg" height=400 width=550>
+</a></div>
 
-In my opinion, scrapy is the most efficient and effective python library to scrape content from webpages. Let me give you my reasoning both Selenium and Beautifulsoup are very easy to learn and are suitable if you are trying to mine a small of amount of data from the web and on the downside, you might get blocked in some websites which require Captcha.
+**GOAL**
 
-On the other hand, Scrapy has a much steeper learning curve but it is much more robust and very efficient compared to others. It is very much advised to use Scrapy when mining much larger data from the web.
+- [x] This is a complete item
+- [ ] This is an incomplete item
+- [ ] fasd
 
-<!-- hi siddesh u got this u so cool always flexing  -->
+To give some context before
 
-To sum things up, use Beuatifulsoup or Selenium if you are scraping a small amount of data and use Scrapy to scrape much larger.
+- What are different types of data?
+- How does noisy data look like?
+- Why do we need to clean data?
+- Web Scraping vs Web crawling
 
-Environment setup:
--> venv
--> scrapy
+- Beatiful Soup vs Selenium vs Scrapy
 
-### Prerequisites
+  Selenium and Beautifulsoup are very easy to learn and are suitable if you are trying to mine a small of amount of data from the web and on the downside, you might get blocked in some websites which require Captcha.
 
-- Need to know how to write xpath for different sections
-  - What is xpath?
+  On the other hand, Scrapy has a much steeper learning curve but it is much more robust and very efficient compared to others. It is very much advised to use Scrapy when mining much larger data from the web.
 
-## Goal of the workshop
+<br><br><br><br>
 
-- By the end of the workshop, we'll create two different datasets for two seperate tasks.
+# TASK 0: Set up the environment
 
-  1. Create an image classification dataset -> Painting vs Photographs
-  2. Create an news dataset to test your sentiment analysis model
+**For Unix systems (macOS & Linux)**
 
-- what is noisy data?
-- what does cleaning really mean? Visual Samples?
+1. Firstly, we need to installing pip (skip this step if already installed).
 
-## Principles of datasets
+   ```bash
+   $ python3 -m pip install --user --upgrade pip
+   $ python3 -m pip --version
+   ```
 
-- Ethics of modern datasets
-- Address issues of gender bias
+2. Secondly, we need to install virtuaenv
 
-## Workshops - Hands-On-Excercises
+   ```bash
+   $ python3 -m pip install --user virtualenv
+   ```
 
----
+3. We need to create a virtual environment for our project and actiavte the environment. This allows us to avoid any kind of potential dependecies related problems.
 
-- create spiders to crawl from web
+   ```bash
+   $ python3 -m venv tgifhacks
+   $ source tgifhacks/bin/activate
+   ```
 
-- data cleaning -> images
+   To leave the enviroment use `deactivate` command.
 
-  - create a utility script for the students
+4. Finally, we install the required packages for the workshop.
 
-- data cleaning -> text
+   ```bash
+   $ pip install -r requirements.txt
+   ```
 
-## References
+**For Windows Systems**
 
----
+1. Firstly, lets install virtuaenv.
 
-- Courses
-  intro
-  intermed
-  adnv
+   ```bash
+   $ py -m pip install --user virtualenv
+   ```
 
-## Project ideas
+2. We need to create a virtual environment for our project and actiavte the environment. This allows us to avoid any kind of potential dependecies related problems.
 
-- idea 1
-- idea 2
+   ```bash
+   $ py -m venv tgifhacks
+   $ .\tgifhacks\Scripts\activate
+   ```
 
-## contact info
+   To leave the enviroment use `deactivate` command.
 
-- email:
+3. Finally, we install the required packages for the workshop.
+
+   ```bash
+   $ pip install -r requirements.txt
+   ```
+
+<br>
+
+# TASK 1: Introduction to Scrapy and XPath
+
+> **Writer's Note:**
+>
+> - What is scrapy?
+> - what is xpath and how to use xpath to select the content in a web page?
+> - Introduction using scrapy shell and two examples
+
+**Scrapy** is a very efficient and powerful framework to crawl websites and extract structured data which can be used for a wide range of useful applications, like data mining and information processing [1].
+
+Scrapy uses a `spider` to crawl through websites. A `Spider` is a search engine bot that downloads and indexes content from the urls provided by the programmer.
+
+In order for us to scrape useful data from webpages we have to tell the `spider` which elements need to be scraped from a web page and thats done in the following two ways :
+
+1.  CSS Selectors
+2.  XPath _(In this workshop, we'll only focus on XPath)_
+
+## so what exactly is xpath?
+
+`XPath`, the XML path language, is a query language for selecting nodes from an XML document. Locating elements with XPath works very well with a lot of flexibility.
+
+XPath uses path expressions to navigate through elements and attributes in an XML document. Lets look into an example to understand what exactly is xpath and its usage.
+
+```html
+<html>
+  <head>
+    <title> My Page </title>
+  </head>
+  <body>
+    <div class="container">
+      <p class="para 1">
+        <a href="#" >TGIF Hacks
+      </p>
+      <p class="para 2">
+        <img src="https://www.sampleimages.com/img1.jpg" />
+      </p>
+    </div>
+  </body>
+</html>
+```
+
+<div style="text-align:center"><img src='./assets/xpath.png' width=800 height=400></div>
+
+<br><br><br><br>
+
+# TASK 2: Create an image classification dataset
+
+Great! Now that we know the basic usage of scrapy, let's get started to scrape some data to create our first dataset.
+
+We'll be taking a more systematic approach as with that you could easily replicate the same steps to create your own datasets.
+
+**<h3>Step 1: </h3>**
+We need to create a scrapy project directory and luckily scrapy provide us with some boilerplate code.
+
+```bash
+$ scrapy startproject imgClfDataset
+$ cd imgClfDataset
+```
+
+Then We create a python script with which we'll code in the set instructions for our spider.
+
+```bash
+$ touch ./imgClfDataset/spiders/images.py
+```
+
+**<h3>Step 2: </h3>**
+The following is the content for the `images.py` script.
+
+```python
+# images.py
+
+import scrapy
+from RawData.items import  Rawdataitem
+from scrapy.loader import ItemLoader
+
+class images(scrapy.Spider):
+
+    name = "raw_paint"
+    start_urls = [
+    "https://fineartamerica.com/art/photographs"
+    ]
+    page = 1
+
+    def parse(self, response):
+        title = response.xpath('________').extract() # Fill the xpath for titles
+        urls  = response.xpath('________').extract() # Fill the xpath for images url
+        self.page= self.page + 1
+        for url, name in zip(urls, title):
+            yield Rawdataitem(file_urls = [url], title= name)
+
+        next_page = f'https://fineartamerica.com/art/photographs?page={self.page}'
+        yield scrapy.Request(next_page, self.parse)
+```
+
+To save the requested images from the url, we have to add a line in the `settings.py` script to specify the download location.
+
+```python
+# settings.py
+
+FILES_STORE = '../scraped_data/' # Add this line and also create the folder
+
+```
+
+**<h3>Step 3: </h3>**
+
+<br><br><br><br>
+
+# TASK 3: News Headlines Dataset
+
+<br><br><br><br>
+
+# Supplementary Materials
+
+Thanks for attend the workshop! I hope it gave you a better idea about scraping data from web. I thought maybe I could provide some study materials for reference or if you wish to explore more about this topic.
+
+## Massive open online course
+
+1. **Mining Massive Datasets:** The courses is quite an advanced course but the contents covered are really interesting. They have a youtube playlist along with a reference book.
+
+   - https://www.youtube.com/channel/UC_Oao2FYkLAUlUVkBfze4jg/videos
+   - https://www.youtube.com/channel/UC_Oao2FYkLAUlUVkBfze4jg/videos
+   - http://www.mmds.org/
+
+2.
+
+## Some Project Ideas to explore
+
+1. Try to scrape some data from
+
+### References
+
+1. https://docs.scrapy.org/en/latest/intro/overview.html
+2. https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/
