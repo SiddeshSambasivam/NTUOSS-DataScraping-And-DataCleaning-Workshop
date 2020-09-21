@@ -193,16 +193,21 @@ Now that we learned to access the elements, lets try to actually apply it. Its a
 $ scrapy shell
 ```
 
-> attach img1
+![](./assets/img1.png)
 
 **Step 2:** `fetch([URL])` will get the response from the URL provided and will store in the variable `response`. And you can view the response using `view()`.
 
-> attach img2, img3
+![](./assets/img2.png)
+
+![](./assets/img3.png)
+
+![](./assets/img3_1.png)
 
 **Step 3:** To get an element from the page, we use `response.xpath([PATH]).extract()`. In this case, we get the list of the portal.
 
-> attach img4
-> attach img5
+![](./assets/img4.png)
+
+![](./assets/img5.png)
 
 <br>
 
