@@ -1,41 +1,56 @@
-# NTU OSS Data scraping and Data cleaning workshop
+# **NTU OSS Data scraping and Data cleaning workshop**
 
 <img src='./assets/poster.png'>
 
-_This repositry contains the reference scripts and content presented in the NTU OSS Data scraping and Data cleaning workshop._
+> _This repositry contains the reference scripts and the content presented in the NTU OSS Data scraping and Data cleaning workshop._
 
 **Presenter:** <ins>Siddesh</ins> Sambasivam Suseela <br>
-**Date (Time):** 18 September 2020 (6:30 PM - 8:30 PM SGT)
+**Date (Time):** 25 September 2020 (6:30 PM - 8:30 PM SGT)
 
-## Hello There!
+## **Hello There!**
 
-In this workshop we'll be mining data from web to create our own datasets for two of the most popular task in machine learning. Firstly, we'll be looking into mining different types of data from web and then we'll move to data cleaning.
+In this age of data-driven world, scraping and crawling content from the web to create datasets is a crucial skill to have in your portfolio. This workshop aims to give attendees a brief introduction into data scraping from web pages to cleaning the scraped data. By the end of the workshop, attendees should have acquired some hands-on experience with the topic by creating their very own datasets.
 
-<div style="text-align:center">
-<a href="http://www.youtube.com/watch?v=Ct8Gxo8StBU"> 
-<img src="./assets/video.jpg" height=400 width=550>
-</a></div>
+In this workshop, attendees will learn about the entire data preparation and collection stage in a machine learning pipeline. We’ll be using scrapy (a python web-crawling framework) to scrape content from webpages and use various python libraries to preprocess our data. By the end of the workshop, the attendees will create a news headlines dataset for sentiment analysis task and Paintings Vs Photographs dataset for binary image classification dataset.
 
-**GOAL**
+<br>
 
-- [x] This is a complete item
-- [ ] This is an incomplete item
-- [ ] fasd
+Before we start to scrape some data from web, its always useful to know the type of data thats needed for the task at hand. The following section introduces the basic classification of data and its relevance to different tasks, in addition we'll look into a few questions which would give you a sense of clarity about the topics thats dicussed in the workshop. I would advise everyone to just take a look into it but if you feel comfortable you can just skip the section.
 
-To give some context before
+<br/>
 
-- What are different types of data?
-- How does noisy data look like?
-- Why do we need to clean data?
-- Web Scraping vs Web crawling
+## **Let's get some context!**
 
-- Beatiful Soup vs Selenium vs Scrapy
+<p align="center">
+  <img src="./assets/meme2.png">
+</p>
 
-  Selenium and Beautifulsoup are very easy to learn and are suitable if you are trying to mine a small of amount of data from the web and on the downside, you might get blocked in some websites which require Captcha.
+Data is the raw form of information that we absorb in a day-to-day basis, it ranges from being an observation to creation such as a news headlines to movies.
 
-  On the other hand, Scrapy has a much steeper learning curve but it is much more robust and very efficient compared to others. It is very much advised to use Scrapy when mining much larger data from the web.
+In the scope of data science, there are various ways in which data could be classified but the most simplest way is to classify them in the following way [3]:
 
-<br><br><br><br>
+1.  Structured Data
+
+    1.1 Numerical Data
+
+    1.2 Categorical Data
+
+    1.3 Timeseries Data
+
+    1.4 Mixed Data
+
+2.  Unstructured Data
+
+    2.1 Image Data
+
+    2.2 Text Data
+
+    2.3 Video Data
+
+Depending on the task, the type of data used could vary widely among the above mentioned.In this workshop, we are focused on scraping **text and image data** from web pages for the mentioned tasks. Read more about it from this [link](https://towardsdatascience.com/7-data-types-a-better-way-to-think-about-data-types-for-machine-learning-939fae99a689).
+
+Look into the FAQs for more questions related to the topic. Now, lets start with the first task.
+<br/>
 
 # TASK 0: Set up the environment
 
@@ -96,9 +111,13 @@ To give some context before
 
 # TASK 1: Introduction to Scrapy and XPath
 
+<p align="center">
+  <img src="./assets/meme1.jpg">
+</p>
+
 > **Writer's Note:**
 >
-> - What is scrapy?
+> - What is scrapy? DONE
 > - what is xpath and how to use xpath to select the content in a web page?
 > - Introduction using scrapy shell and two examples
 
@@ -113,7 +132,7 @@ In order for us to scrape useful data from webpages we have to tell the `spider`
 
 ## so what exactly is xpath?
 
-`XPath`, the XML path language, is a query language for selecting nodes from an XML document. Locating elements with XPath works very well with a lot of flexibility.
+`XPath`, the XML path language, is a query language for selecting nodes from a XML or HTML document. Locating elements with XPath works very well with a lot of flexibility.
 
 XPath uses path expressions to navigate through elements and attributes in an XML document. Lets look into an example to understand what exactly is xpath and its usage.
 
@@ -135,11 +154,63 @@ XPath uses path expressions to navigate through elements and attributes in an XM
 </html>
 ```
 
+The above html file can be represented in the below tree structure with each elements in the same level are called siblings and the elements below the level are called children.
+
 <div style="text-align:center"><img src='./assets/xpath.png' width=800 height=400></div>
 
-<br><br><br><br>
+Usually to access any element, we could either state the absolute path like `html/head/body/title` or use `//` to select the element like `//title`. `//` is starts from the root and fetches all the elements with name `title`.
+
+The following are the few ways you could use to access each element
+
+- To access the img link in the html file
+
+  > `"//div[@class='containers']/p[@class='para 1']/img/@src"` or
+  > `"//p[@class='para 2']/img/@src"`
+
+  `@` could be used to access the attributes of a element and `[]` is used to index the element as its necessary when there is multiple instances of the same tag. `[]` uses the attributes (which can be accessed using `@`) to uniquely identify an element.
+
+- To access the `<a>` tag
+
+  > `"//p[@class='para 1']/a/@href"`
+
+  This gets the hyperlink attached to the `<a>` tag.
+
+> _**NOTE:** Make sure to **not to use** the same set of quotes to enclose the paths._
+>
+> Example:
+>
+> `"//p[class="para 1"]"` or `'//p[class='para 1']'`
+
+<br>
+
+### **Scrapy Shell (Debugger)**
+
+Now that we learned to access the elements, lets try to actually apply it. Its always a best practice to try out the xpath in the scrapy shell to check if the xpath works, this helps us avoid unnecessary headache in the later stage of our project.
+
+**Step 1:** Open the terminal and activate the environment and enter the following in the terminal to open scrapy shell.
+
+```bash
+$ scrapy shell
+```
+
+> attach img1
+
+**Step 2:** `fetch([URL])` will get the response from the URL provided and will store in the variable `response`. And you can view the response using `view()`.
+
+> attach img2, img3
+
+**Step 3:** To get an element from the page, we use `response.xpath([PATH]).extract()`. In this case, we get the list of the portal.
+
+> attach img4
+> attach img5
+
+<br>
 
 # TASK 2: Create an image classification dataset
+
+<p align="center">
+  <img src="./assets/meme3.jpg">
+</p>
 
 Great! Now that we know the basic usage of scrapy, let's get started to scrape some data to create our first dataset.
 
@@ -207,9 +278,9 @@ FILES_STORE = '../scraped_data/' # Add this line and also create the folder
 
 # Supplementary Materials
 
-Thanks for attend the workshop! I hope it gave you a better idea about scraping data from web. I thought maybe I could provide some study materials for reference or if you wish to explore more about this topic.
+Thanks for attending the workshop! I hope it gave you a better idea about scraping data from web. These are a few study materials for reference or if you wish to explore more about this topic.
 
-## Massive open online course
+## **Massive open online course (MOOC)**
 
 1. **Mining Massive Datasets:** The courses is quite an advanced course but the contents covered are really interesting. They have a youtube playlist along with a reference book.
 
@@ -219,11 +290,27 @@ Thanks for attend the workshop! I hope it gave you a better idea about scraping 
 
 2.
 
-## Some Project Ideas to explore
+## **Some Project Ideas to explore**
 
 1. Try to scrape some data from
 
-### References
+### **FAQs for the workshop**
+
+To give some context before
+
+- What are different types of data?
+- How does noisy data look like?
+- Why do we need to clean data?
+- Web Scraping vs Web crawling
+
+- Beatiful Soup vs Selenium vs Scrapy
+
+  Selenium and Beautifulsoup are very easy to learn and are suitable if you are trying to mine a small of amount of data from the web and on the downside, you might get blocked in some websites which require Captcha.
+
+  On the other hand, Scrapy has a much steeper learning curve but it is much more robust and very efficient compared to others. It is very much advised to use Scrapy when mining much larger data from the web.
+
+### **References**
 
 1. https://docs.scrapy.org/en/latest/intro/overview.html
 2. https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/
+3. Lecture Slides, Introduction to Data Science and Artificial Intelligence, Prof. Sourav Sen, NTU.
