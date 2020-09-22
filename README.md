@@ -442,23 +442,23 @@ We have crawled all the data that's required to for the next section and now let
   <img src="./assets/thanks.jpg">
 </p>
 
-Thanks for attending the workshop! I hope it gave you a better idea about scraping data from web. These are a few study materials for reference or if you wish to explore more about this topic.
+Thanks for attending the workshop! I hope it gave you a better idea about scraping data from web and cleaning the scraped data. These are a few study materials for reference or if you wish to explore more about this topic.
 
-Feel free fork this repository to keep track of the courses and project ideas.
+Feel free to fork this repository to keep track of the courses and project ideas.
 
 # **Supplementary Materials**
 
 ## **Massive open online course (MOOC)**
 
-1. **Mining Massive Datasets:** The courses is quite an advanced course but the contents covered are really interesting. They have a youtube playlist along with a reference book.
+- [ ] **Mining Massive Datasets:** The courses is quite an advanced course but the contents covered are really interesting. They have a youtube playlist along with a reference book.
 
-   - https://www.youtube.com/channel/UC_Oao2FYkLAUlUVkBfze4jg/videos
-   - https://www.youtube.com/channel/UC_Oao2FYkLAUlUVkBfze4jg/videos
-   - http://www.mmds.org/
+  - https://www.youtube.com/channel/UC_Oao2FYkLAUlUVkBfze4jg/videos
+  - https://www.youtube.com/channel/UC_Oao2FYkLAUlUVkBfze4jg/videos
+  - http://www.mmds.org/
 
-2. **Data Mining Specilization** The course could auditted and dives deep into different aspects of the the topics dicussed int the workshop.
+- [ ] **Data Mining Specilization** The course could auditted and dives deep into different aspects of the the topics dicussed int the workshop.
 
-   - https://www.coursera.org/specializations/data-mining
+  - https://www.coursera.org/specializations/data-mining
 
 <br/>
 
