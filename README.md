@@ -353,7 +353,9 @@ Spider middlewares are specific hooks that sit between the Engine and the Spider
 
 # **TASK 3: News Headlines Dataset**
 
-![](./assets/newsbg.jpg)
+<p align="center">
+   <img src="./assets/newsbg1.png">  
+</p>
 
 **Sentiment analysis** is a very important task in various field from politics to customer satisfaction. And hence we always need some data to test the sentiment analysis model and in this section we'll be mining news headlines about "Oil". This modelling could be extrapolated to any other topics. So lets get started!
 
@@ -456,7 +458,7 @@ Feel free to fork this repository to keep track of the courses and project ideas
   - https://www.youtube.com/channel/UC_Oao2FYkLAUlUVkBfze4jg/videos
   - http://www.mmds.org/
 
-- [ ] **Data Mining Specilization** The course could auditted and dives deep into different aspects of the the topics dicussed int the workshop.
+- [ ] **Data Mining Specilization** The course dives deep into different aspects of the the topics dicussed in the workshop.
 
   - https://www.coursera.org/specializations/data-mining
 
