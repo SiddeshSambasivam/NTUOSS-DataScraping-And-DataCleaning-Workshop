@@ -276,8 +276,8 @@ class images(scrapy.Spider):
 
     def parse(self, response):
 
-        self.image_titles = response.xpath('//p[@class="flowArtworkName"]//text()').extract()
-        self.image_urls  = response.xpath('//div[@class="flowImageContainerDiv"]/a/img/@data-src').extract()
+        self.image_titles = response.xpath('[ TYPE XPATH HERE ]').extract()
+        self.image_urls  = response.xpath('[ TYPE XPATH HERE ]').extract()
 
         self.page= self.page + 1
 
@@ -390,8 +390,8 @@ class newsheadlines(scrapy.Spider):
 
     def parse(self, response):
         if self.page <= self.page_limit:
-            news_title = response.xpath("//h2[@class='categoryArticle__title']//text()").extract()
-            news_meta = response.xpath("//p[@class='categoryArticle__meta']//text()").extract()
+            news_title = response.xpath("[ TYPE XPATH HERE ]").extract()
+            news_meta  = response.xpath("[ TYPE XPATH HERE ]").extract()
             self.page+=1
             for t, m in zip(news_title, news_meta):
                 news_raw = {
