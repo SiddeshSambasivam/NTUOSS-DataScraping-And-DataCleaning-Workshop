@@ -298,17 +298,29 @@ To save the requested images from the url, we have to add a line in the `setting
 # settings.py
 ITEM_PIPELINES = {'scrapy.pipelines.images.ImagesPipeline': 1}
 
-IMAGES_STORE = '/Users/siddesh.suseela/Work/ntuoss-dataScrapingAndDataCleaning/imgClfDataset/raw_dataset/paintings' # Add this line and also create the folder
+IMAGES_STORE = './raw_dataset/paintings' # Add this line and also create the folder
 
 ```
 
 **<h3>Step 3: </h3>** Change the directory to the root folder which contains the `scrapy.cfg` and enter the following command in the terminal to instruct your spider to start crawling through the pages and scraping the content from the web page.
 
+The general syntax to call the spider to crawl is the following
+
+```bash
+$ scrapy crawl [NAME OF THE SPIDER]
+```
+
+In this case, it would be
+
 ```bash
 $ scrapy crawl images
 ```
 
+With that we conclude this task and will get back to the scraped content at the last section where we clean and preprocess the data.
+
 <br/>
+
+As we have already applied various components to scrape content from web pages, it would be **easier to understand the architecture of scrapy.**
 
 ## **Scrapy Architecture**
 
@@ -341,13 +353,100 @@ Spider middlewares are specific hooks that sit between the Engine and the Spider
 
 # **TASK 3: News Headlines Dataset**
 
-<br><br><br><br>
+![](./assets/newsbg.jpg)
 
-# **Supplementary Materials**
+**Sentiment analysis** is a very important task in various field from politics to customer satisfaction. And hence we always need some data to test the sentiment analysis model and in this section we'll be mining news headlines about "Oil". This modelling could be extrapolated to any other topics. So lets get started!
+
+**<h3>Step 1: </h3>**
+
+```bash
+$ scrapy startproject newsheadlines
+$ cd newsheadlines
+```
+
+Then We create a python script with which we'll code in the set instructions for our spider.
+
+```bash
+$ touch ./newsheadlines/spiders/headlines.py
+```
+
+**<h3>Step 2: </h3>**
+
+The following is the content for the `headlines.py` script.
+
+```python
+# headlines.py
+
+import scrapy
+
+class newsheadlines(scrapy.Spider):
+
+    name="news"
+    start_urls = [
+        'https://oilprice.com/Latest-Energy-News/World-News/'
+    ]
+    page = 1
+    page_limit = 10
+
+    def parse(self, response):
+        if self.page <= self.page_limit:
+            news_title = response.xpath("//h2[@class='categoryArticle__title']//text()").extract()
+            news_meta = response.xpath("//p[@class='categoryArticle__meta']//text()").extract()
+            self.page+=1
+            for t, m in zip(news_title, news_meta):
+                news_raw = {
+                    'title': t,
+                    'meta' : m,
+                }
+
+                yield  news_raw
+            next_page  = f'https://oilprice.com/Latest-Energy-News/World-News/Page-{self.page}.html'
+            yield scrapy.Request(next_page, self.parse)
+```
+
+we also have to add a few lines in the `settings.py` script to specify the download location.
+
+```python
+# settings.py
+
+FEED_FORMAT="csv"
+FEED_URI="./raw_dataset/news_raw.csv" # Add this line and also create the folder
+
+```
+
+**<h3>Step 3: </h3>** Change the directory to the root folder which contains the `scrapy.cfg` and enter the following command in the terminal to instruct your spider to start crawling through the pages and scraping the content from the web page.
+
+```bash
+$ scrapy crawl news
+```
+
+We have crawled all the data that's required to for the next section and now lets start cleaning some data.
+
+<br/>
+
+# **Data Cleaning and Preprocessing**
+
+<p align="center">
+  <img src="./assets/clean2.jpeg">  
+</p>
+
+<p align="center">
+<----------- YET-To-ADD --------------->
+</p>
+
+<br/><br/>
+
+**With that we come to the end of the workshop...**
+
+<p align="center">
+  <img src="./assets/thanks.jpg">
+</p>
 
 Thanks for attending the workshop! I hope it gave you a better idea about scraping data from web. These are a few study materials for reference or if you wish to explore more about this topic.
 
 Feel free fork this repository to keep track of the courses and project ideas.
+
+# **Supplementary Materials**
 
 ## **Massive open online course (MOOC)**
 
