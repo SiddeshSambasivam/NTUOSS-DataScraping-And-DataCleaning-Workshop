@@ -115,12 +115,6 @@ Look into the FAQs for more questions related to the topic. Now, lets start with
   <img src="./assets/meme1.jpg">
 </p>
 
-> **Writer's Note:**
->
-> - What is scrapy? DONE
-> - what is xpath and how to use xpath to select the content in a web page?
-> - Introduction using scrapy shell and two examples
-
 **Scrapy** is a very efficient and powerful framework to crawl websites and extract structured data which can be used for a wide range of useful applications, like data mining and information processing [1].
 
 Scrapy uses a `spider` to crawl through websites. A `Spider` is a search engine bot that downloads and indexes content from the urls provided by the programmer.
@@ -209,6 +203,8 @@ $ scrapy shell
 
 ![](./assets/img5.png)
 
+Now that we are quite comfortable with the extracting data from the html files, lets start to create our first dataset.
+
 <br>
 
 # TASK 2: Create an image classification dataset
@@ -236,46 +232,112 @@ $ touch ./imgClfDataset/spiders/images.py
 ```
 
 **<h3>Step 2: </h3>**
+Next we need to create a scrapy field which acts as a placeholder for the scraped data. Go to the `items.py` file (create the file if its not created by default)
+
+```python
+# items.py
+
+import scrapy
+
+
+class ImgclfdatasetItem(scrapy.Item):
+
+    image_titles = scrapy.Field()
+    images = scrapy.Field()
+    image_urls = scrapy.Field()
+
+```
+
+**<h3>Step 3: </h3>**
+Finally we use the all that we learned before to instruct the spider to crawl the data we need. We set the `name` of our spider and other parameters such as maximum page limit in the `page_limit`.
+
+Firstly, we'll scrape the images of `photographs` after which you can change the `classname` variable to `paintings`.
+
 The following is the content for the `images.py` script.
 
 ```python
 # images.py
 
 import scrapy
-from RawData.items import  Rawdataitem
 from scrapy.loader import ItemLoader
+from ..items import ImgclfdatasetItem
 
 class images(scrapy.Spider):
 
-    name = "raw_paint"
+    name = 'images'
+    classname = "photographs" # [ "photographs", "paintings"]
     start_urls = [
-    "https://fineartamerica.com/art/photographs"
+        f"https://fineartamerica.com/art/{classname}"
     ]
     page = 1
+    image_urls = []
+    image_titles = []
+    page_limit = 10
 
     def parse(self, response):
-        title = response.xpath('________').extract() # Fill the xpath for titles
-        urls  = response.xpath('________').extract() # Fill the xpath for images url
-        self.page= self.page + 1
-        for url, name in zip(urls, title):
-            yield Rawdataitem(file_urls = [url], title= name)
 
-        next_page = f'https://fineartamerica.com/art/photographs?page={self.page}'
-        yield scrapy.Request(next_page, self.parse)
+        self.image_titles = response.xpath('//p[@class="flowArtworkName"]//text()').extract()
+        self.image_urls  = response.xpath('//div[@class="flowImageContainerDiv"]/a/img/@data-src').extract()
+
+        self.page= self.page + 1
+
+        if self.page <= self.page_limit:
+            item = ImgclfdatasetItem()
+            item['image_urls'] = self.image_urls
+            item['image_titles'] = self.image_titles
+            yield item
+
+            next_page = f'https://fineartamerica.com/art/{self.classname}?page={self.page}'
+            yield scrapy.Request(next_page, callback=self.parse)
+
 ```
 
 To save the requested images from the url, we have to add a line in the `settings.py` script to specify the download location.
 
 ```python
 # settings.py
+ITEM_PIPELINES = {'scrapy.pipelines.images.ImagesPipeline': 1}
 
-FILES_STORE = '../scraped_data/' # Add this line and also create the folder
+IMAGES_STORE = '/Users/siddesh.suseela/Work/ntuoss-dataScrapingAndDataCleaning/imgClfDataset/raw_dataset/paintings' # Add this line and also create the folder
 
 ```
 
-**<h3>Step 3: </h3>**
+**<h3>Step 3: </h3>** Change the directory to the root folder which contains the `scrapy.cfg` and enter the following command in the terminal to instruct your spider to start crawling through the pages and scraping the content from the web page.
 
-<br><br><br><br>
+```bash
+$ scrapy crawl images
+```
+
+<br/>
+
+## **Scrapy Architecture**
+
+![](./assets/arch.png)
+
+### **Components**
+
+**Scrapy Engine**
+The engine is responsible for controlling the data flow between all components of the system, and triggering events when certain actions occur. See the Data Flow section above for more details.
+
+**Scheduler**
+The Scheduler receives requests from the engine and enqueues them for feeding them later (also to the engine) when the engine requests them.
+
+**Downloader**
+The Downloader is responsible for fetching web pages and feeding them to the engine which, in turn, feeds them to the spiders.
+
+**Spiders**
+Spiders are custom classes written by Scrapy users to parse responses and extract items from them or additional requests to follow. For more information see Spiders.
+
+**Item Pipeline**
+The Item Pipeline is responsible for processing the items once they have been extracted (or scraped) by the spiders. Typical tasks include cleansing, validation and persistence (like storing the item in a database).
+
+**Downloader middlewares**
+Downloader middlewares are specific hooks that sit between the Engine and the Downloader and process requests when they pass from the Engine to the Downloader, and responses that pass from Downloader to the Engine.
+
+**Spider middlewares**
+Spider middlewares are specific hooks that sit between the Engine and the Spiders and are able to process spider input (responses) and output (items and requests).
+
+<br/>
 
 # TASK 3: News Headlines Dataset
 
@@ -319,3 +381,4 @@ To give some context before
 1. https://docs.scrapy.org/en/latest/intro/overview.html
 2. https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/
 3. Lecture Slides, Introduction to Data Science and Artificial Intelligence, Prof. Sourav Sen, NTU.
+4. https://docs.scrapy.org/en/latest/topics/architecture.html#:~:text=also%20described%20below.-,Data%20flow,to%20crawl%20from%20the%20Spider.&text=The%20Engine%20sends%20processed%20items,possible%20next%20Requests%20to%20crawl.
