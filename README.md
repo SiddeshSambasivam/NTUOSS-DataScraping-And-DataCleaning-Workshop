@@ -1,6 +1,6 @@
 # **NTU OSS Data scraping and Data cleaning workshop**
 
-<img src='./assets/poster.png'>
+<img src='./assets/poster_fin.png'>
 
 > _This repositry contains the reference scripts and the content presented in the NTU OSS Data scraping and Data cleaning workshop._
 
