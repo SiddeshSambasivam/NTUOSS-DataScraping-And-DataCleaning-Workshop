@@ -52,7 +52,7 @@ Depending on the task, the type of data used could vary widely among the above m
 Look into the FAQs for more questions related to the topic. Now, lets start with the first task.
 <br/>
 
-# TASK 0: Set up the environment
+# **TASK 0: Set up the environment**
 
 **For Unix systems (macOS & Linux)**
 
@@ -207,7 +207,7 @@ Now that we are quite comfortable with the extracting data from the html files, 
 
 <br>
 
-# TASK 2: Create an image classification dataset
+# **TASK 2: Create an image classification dataset**
 
 <p align="center">
   <img src="./assets/meme3.jpg">
@@ -339,13 +339,15 @@ Spider middlewares are specific hooks that sit between the Engine and the Spider
 
 <br/>
 
-# TASK 3: News Headlines Dataset
+# **TASK 3: News Headlines Dataset**
 
 <br><br><br><br>
 
-# Supplementary Materials
+# **Supplementary Materials**
 
 Thanks for attending the workshop! I hope it gave you a better idea about scraping data from web. These are a few study materials for reference or if you wish to explore more about this topic.
+
+Feel free fork this repository to keep track of the courses and project ideas.
 
 ## **Massive open online course (MOOC)**
 
@@ -355,28 +357,43 @@ Thanks for attending the workshop! I hope it gave you a better idea about scrapi
    - https://www.youtube.com/channel/UC_Oao2FYkLAUlUVkBfze4jg/videos
    - http://www.mmds.org/
 
-2.
+2. **Data Mining Specilization** The course could auditted and dives deep into different aspects of the the topics dicussed int the workshop.
+
+   - https://www.coursera.org/specializations/data-mining
+
+<br/>
 
 ## **Some Project Ideas to explore**
 
-1. Try to scrape some data from
+- [ ] Create an IMDB movie dataset from scratch and build a simple recommendation system using the dataset.
 
-### **FAQs for the workshop**
+- [ ] Create a multiclass image classification dataset of your choice and create a classification model using the dataset
 
-To give some context before
+<br/>
 
-- What are different types of data?
-- How does noisy data look like?
-- Why do we need to clean data?
-- Web Scraping vs Web crawling
+# **About Me**
 
-- Beatiful Soup vs Selenium vs Scrapy
+I am Junior Year EEE Undergraduate student specialising in data intelligence and processing, and currently serving as the chairperson of NTUOSS's TGIFHacks Events committee. I am deeply passionate about industrial research in deep learning and interested in application and deployment of large scale machine learning models. I love to contribute to open sources projects and to participate in various Kaggle competitions. I am currently working as a part-time Data Science intern at Shopee in the Language services team.
 
-  Selenium and Beautifulsoup are very easy to learn and are suitable if you are trying to mine a small of amount of data from the web and on the downside, you might get blocked in some websites which require Captcha.
+> _Feel free to drop an email if you have any doubts or to collaborate on any projects!_
+>
+> **Email:** plutocrat45@gmail.com or siddesh002@e.ntu.edu.sg
 
-  On the other hand, Scrapy has a much steeper learning curve but it is much more robust and very efficient compared to others. It is very much advised to use Scrapy when mining much larger data from the web.
+<br/>
 
-### **References**
+# **FAQs for the workshop**
+
+### **Web Scraping vs Web crawling**
+
+### **Beatiful Soup vs Selenium vs Scrapy**
+
+Selenium and Beautifulsoup are very easy to learn and are suitable if you are trying to mine a small of amount of data from the web and on the downside, you might get blocked in some websites which require Captcha.
+
+On the other hand, Scrapy has a much steeper learning curve but it is much more robust and very efficient compared to others. It is very much advised to use Scrapy when mining much larger data from the web.
+
+<br/>
+
+# **References**
 
 1. https://docs.scrapy.org/en/latest/intro/overview.html
 2. https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/
