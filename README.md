@@ -7,7 +7,17 @@
 **Presenter:** <ins>Siddesh</ins> Sambasivam Suseela <br>
 **Date (Time):** 25 September 2020 (6:30 PM - 8:30 PM SGT)
 
-## **Hello There!**
+# **About Me**
+
+I am Junior Year EEE Undergraduate student specialising in data intelligence and processing, and currently serving as the chairperson of NTUOSS's TGIFHacks Events committee. I am deeply passionate about industrial research in deep learning and interested in application and deployment of large scale machine learning models. I love to contribute to open sources projects and to participate in various Kaggle competitions. I am currently working as a part-time Data Science intern at Shopee in the Language services team.
+
+> _Feel free to drop an email if you have any doubts or to collaborate on any projects!_
+>
+> **Email:** plutocrat45@gmail.com or siddesh002@e.ntu.edu.sg
+
+<br/>
+
+# **Hello There!**
 
 In this age of data-driven world, scraping and crawling content from the web to create datasets is a crucial skill to have in your portfolio. This workshop aims to give attendees a brief introduction into data scraping from web pages to cleaning the scraped data. By the end of the workshop, attendees should have acquired some hands-on experience with the topic by creating their very own datasets.
 
@@ -19,7 +29,7 @@ Before we start to scrape some data from web, its always useful to know the type
 
 <br/>
 
-## **Let's get some context!**
+# **Let's get some context!**
 
 <p align="center">
   <img src="./assets/meme2.png">
@@ -432,13 +442,11 @@ We have crawled all the data that's required to for the next section and now let
   <img src="./assets/clean2.jpeg">  
 </p>
 
-<p align="center">
-<----------- YET-To-ADD --------------->
-</p>
+The following section of the workshop is documented in the `Data Cleaning.ipynb` notebook. Open the jupyter notebook and proceed with the workshop.
 
-<br/><br/>
+<br/>
 
-**With that we come to the end of the workshop...**
+## **And with that we come to the end of the workshop...**
 
 <p align="center">
   <img src="./assets/thanks.jpg">
@@ -472,21 +480,11 @@ Feel free to fork this repository to keep track of the courses and project ideas
 
 <br/>
 
-# **About Me**
-
-I am Junior Year EEE Undergraduate student specialising in data intelligence and processing, and currently serving as the chairperson of NTUOSS's TGIFHacks Events committee. I am deeply passionate about industrial research in deep learning and interested in application and deployment of large scale machine learning models. I love to contribute to open sources projects and to participate in various Kaggle competitions. I am currently working as a part-time Data Science intern at Shopee in the Language services team.
-
-> _Feel free to drop an email if you have any doubts or to collaborate on any projects!_
->
-> **Email:** plutocrat45@gmail.com or siddesh002@e.ntu.edu.sg
-
-<br/>
-
 # **FAQs for the workshop**
 
 ### **Web Scraping vs Web crawling**
 
-### **Beatiful Soup vs Selenium vs Scrapy**
+### **Beautiful Soup vs Selenium vs Scrapy**
 
 Selenium and Beautifulsoup are very easy to learn and are suitable if you are trying to mine a small of amount of data from the web and on the downside, you might get blocked in some websites which require Captcha.
 
