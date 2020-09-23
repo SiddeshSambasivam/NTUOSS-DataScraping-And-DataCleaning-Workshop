@@ -2,14 +2,14 @@
 
 <img src='./assets/poster_fin.png'>
 
-> _This repositry contains the reference scripts and the content presented in the NTU OSS Data scraping and Data cleaning workshop._
+> _This repositry contains the reference scripts and the content presented in the NTU OSS Data scraping and Data cleaning workshop. This workshop is purely for educational purpose only._
 
 **Presenter:** <ins>Siddesh</ins> Sambasivam Suseela <br>
 **Date (Time):** 25 September 2020 (6:30 PM - 8:30 PM SGT)
 
 # **About Me**
 
-I am Junior Year EEE Undergraduate student specialising in data intelligence and processing, and currently serving as the chairperson of NTUOSS's TGIFHacks Events committee. I am deeply passionate about industrial research in deep learning and interested in application and deployment of large scale machine learning models. I love to contribute to open sources projects and to participate in various Kaggle competitions. I am currently working as a part-time Data Science intern at Shopee in the Language services team.
+I am a Junior Year EEE Undergraduate student specialising in data intelligence and processing. I am currently serving as the chairperson of NTUOSS's TGIFHacks Events committee. I am deeply passionate about industrial research in deep learning and interested in application and deployment of large-scale machine learning models. I love to contribute to open sources projects and participate in various Kaggle competitions. I am currently working as a part-time Data Science intern at Shopee in the Language services team.
 
 > _Feel free to drop an email if you have any doubts or to collaborate on any projects!_
 >
@@ -35,7 +35,7 @@ Before we start to scrape some data from web, its always useful to know the type
   <img src="./assets/meme2.png">
 </p>
 
-Data is the raw form of information that we absorb in a day-to-day basis, it ranges from being an observation to creation such as a news headlines to movies.
+Data is a raw form of information that we absorb in a day-to-day basis, it may refer to either an observation or a creation (such as a news headlines or movies.)
 
 In the scope of data science, there are various ways in which data could be classified but the most simplest way is to classify them in the following way [3]:
 
@@ -57,7 +57,7 @@ In the scope of data science, there are various ways in which data could be clas
 
     2.3 Video Data
 
-Depending on the task, the type of data used could vary widely among the above mentioned.In this workshop, we are focused on scraping **text and image data** from web pages for the mentioned tasks. Read more about it from this [link](https://towardsdatascience.com/7-data-types-a-better-way-to-think-about-data-types-for-machine-learning-939fae99a689).
+Depending on the task, the type of data used could vary widely among the above mentioned. In this workshop, we will focus on scraping **text and image data** from web pages for the mentioned tasks. Read more about it [here](https://towardsdatascience.com/7-data-types-a-better-way-to-think-about-data-types-for-machine-learning-939fae99a689).
 
 Look into the FAQs for more questions related to the topic. Now, lets start with the first task.
 <br/>
@@ -66,20 +66,22 @@ Look into the FAQs for more questions related to the topic. Now, lets start with
 
 **For Unix systems (macOS & Linux)**
 
-1. Firstly, we need to installing pip (skip this step if already installed).
+1. First, we need to install pip (skip this step if already installed).
 
    ```bash
    $ python3 -m pip install --user --upgrade pip
    $ python3 -m pip --version
    ```
 
-2. Secondly, we need to install virtuaenv
+   > Note to change the syntax accordingly when `pip3` package installer is used
+
+2. Second, we need to install virtuaenv
 
    ```bash
    $ python3 -m pip install --user virtualenv
    ```
 
-3. We need to create a virtual environment for our project and actiavte the environment. This allows us to avoid any kind of potential dependecies related problems.
+3. We need to create a virtual environment for our project and activate the environment. This allows us to avoid any kind of potential dependecies related problems.
 
    ```bash
    $ python3 -m venv tgifhacks
@@ -102,7 +104,7 @@ Look into the FAQs for more questions related to the topic. Now, lets start with
    $ py -m pip install --user virtualenv
    ```
 
-2. We need to create a virtual environment for our project and actiavte the environment. This allows us to avoid any kind of potential dependecies related problems.
+2. We need to create a virtual environment for our project and actiavte the environment. This helps us to avoid any kind of potential dependency-related problems.
 
    ```bash
    $ py -m venv tgifhacks
@@ -116,6 +118,8 @@ Look into the FAQs for more questions related to the topic. Now, lets start with
    ```bash
    $ pip install -r requirements.txt
    ```
+
+   > `requirements.txt` is a list of all the required dependecies used in the workshop.
 
 <br>
 
@@ -207,7 +211,7 @@ $ scrapy shell
 
 ![](./assets/img3_1.png)
 
-**Step 3:** To get an element from the page, we use `response.xpath([PATH]).extract()`. In this case, we get the list of the portal.
+**Step 3:** To get an element from the page, we use `response.xpath([PATH]).extract()`. In this case, we get the list of the portal. To get the class name of the element, right click and inspect the element.
 
 ![](./assets/img4.png)
 
@@ -225,7 +229,7 @@ Now that we are quite comfortable with the extracting data from the html files, 
 
 Great! Now that we know the basic usage of scrapy, let's get started to scrape some data to create our first dataset.
 
-We'll be taking a more systematic approach as with that you could easily replicate the same steps to create your own datasets.
+We'll be taking a more systematic approach so you can easily replicate the same steps to create your own datasets.
 
 **<h3>Step 1: </h3>**
 We need to create a scrapy project directory and luckily scrapy provide us with some boilerplate code.
