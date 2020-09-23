@@ -11,8 +11,8 @@ class newsheadlines(scrapy.Spider):
 
     def parse(self, response):
         if self.page <= self.page_limit:
-            news_title = response.xpath("//h2[@class='categoryArticle__title']//text()").extract()
-            news_meta = response.xpath("//p[@class='categoryArticle__meta']//text()").extract()
+            news_title = response.xpath("//h2[@class='categoryArticle__title']").extract()
+            news_meta = response.xpath("//p[@class='categoryArticle__meta']").extract()
             self.page+=1
             for t, m in zip(news_title, news_meta):
                 news_raw = {
